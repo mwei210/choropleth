@@ -13,7 +13,7 @@ var g = svg.append("g")
            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 d3.queue()
-  .defer(d3.json, "data/us.json")
+  .defer(d3.json, "data/counties.json")
   .defer(d3.csv, "data/ACS_15_5YR_S1902_with_ann.csv")
   .await(ready);
 
@@ -27,13 +27,13 @@ var path = d3.geoPath()
 var color = d3.scaleThreshold()
               .domain([15000, 19000, 23000, 27000, 31000, 35000])
               .range(
-                ["#B26D3A",
-                "#84812F",
-                "#498C54",
-                "#0B8D87",
-                "#5583A6",
-                "#9D6E9A",
-                "#C0606D"]);
+                ["#E183A8",
+                "#D88BB9",
+                "#CA94C8",
+                "#B89ED5",
+                "#A3A8DD",
+                "#8BB1E2",
+                "#71BAE2"]);
 
 function ready(error, us, income) {
   if (error) throw error;
@@ -52,9 +52,8 @@ function ready(error, us, income) {
   svg.append("g")
       .attr("class", "counties")
     .selectAll("path")
-      .data(us.features)
+      .data(topojson.feature(us, us.objects.us).features)
     .enter().append("path")
       .attr("d", path)
-      .style("fill", d => (color(incomeByCounty[d.properties.GEOID])))
-      .style("stroke", "black");
+      .style("fill", d => (color(incomeByCounty[d.properties.GEOID])));
 }
