@@ -40,9 +40,16 @@ function ready(error, us, income) {
 
   var incomeByCounty = {};
   income.forEach(d => {
-    // console.log(d);
+    console.log(d);
     const income = d["Mean income (dollars); Estimate; PER CAPITA INCOME BY RACE AND HISPANIC OR LATINO ORIGIN - Total population"]
     incomeByCounty[d.Id2] = +income;
+  });
+
+  var nameByCounty = {};
+  income.forEach(d => {
+    console.log(d);
+    const name = d.Geography;
+    nameByCounty[d.Id2] = name;
   });
 
   // console.log(incomeByCounty);
@@ -50,22 +57,33 @@ function ready(error, us, income) {
   // console.log(us);
 
   svg.append("g")
-      .attr("class", "counties")
+      .attr("class", "county")
     .selectAll("path")
       .data(topojson.feature(us, us.objects.counties).features)
     .enter().append("path")
       .attr("d", path)
       .style("fill", d => {
-        console.log(d);
+        // console.log(d);
         const adjId = d.id < 10000 ? ("0" + d.id) : d.id;
         return color(incomeByCounty[adjId]);
       })
-      // .on("mouseover", (d) => {
-      //   d3.select("h3").text(d.)
-      // })
+      .on("mouseover", (d) => {
+        const adjId = d.id < 10000 ? ("0" + d.id) : d.id;
+        if (nameByCounty[adjId]) {
+          d3.select("h3").text(`${nameByCounty[adjId]}: \n $${incomeByCounty[adjId]}`);
+        }
+        else {
+          d3.select("h3").text("Data not available");
+        }
+        d3.select(this).attr("class", "county hover");
+      })
+      .on("mouseout", (d) => {
+        d3.select("h3").text("");
+        d3.select(this).attr("class", "county")
+      });
 
   svg.append("path")
      .datum(topojson.mesh(us, us.objects.states, (a, b) => (a !== b)))
-     .attr("class", "states")
+     .attr("class", "state")
      .attr("d", path);
 }
