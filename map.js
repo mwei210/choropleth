@@ -7,7 +7,8 @@ var margin = { top: 0, left: 0, right: 0, bottom: 0 },
 
 var svg = d3.select("#map").append("svg")
             .attr("height", height + margin.top + margin.bottom)
-            .attr("width", width + margin.left + margin.right);
+            .attr("width", width + margin.left + margin.right)
+            .style("margin", "15px auto");
 
 var tooltip = d3.select("#map").append("div")
                 .attr("class", "tooltip")
@@ -40,69 +41,40 @@ var color = d3.scaleThreshold()
                 "#8BB1E2",
                 "#71BAE2"]);
 
-// var legendSize = 18;
-// var legendSpace = 4;
-//
-// var legend = svg.selectAll(".legend")
-//                 .data(color.domain())
-//                 .enter().append("g")
-//                 .attr("class", "legend")
-//                 .attr("transform", (d, i) => {
-//                   var height = legendSize + legendSpace;
-//                   var offset = height * color.domain().length / 2;
-//                   var x = -2 * legendSize;
-//                   var y = i * height - offset;
-//                   return 'translate(' + x + ',' + y + ')';
-//                 });
-//
-// legend.append("rect")
-//       .attr("width", legendSize)
-//       .attr("height", legendSize)
-//       .style("fill", color)
-//       .style("stroke", color);
-//
-// legend.append("text")
-//       .attr("x", legendSize + legendSpace)
-//       .attr("y", legendSize - legendSpace)
-//       .text(d => d)
+var legend_values = [
+  "< 15000",
+  "15000+",
+  "19000+",
+  "23000+",
+  "27000+",
+  "31000+",
+  "$35000+"
+]
+
+var legend = svg.selectAll("g.legend")
+                .data([0, 15000, 19000, 23000, 27000, 31000, 35000])
+                .enter().append("g")
+                .attr("class", "legend");
+
+var legend_width = 35, legend_height = 20;
+
+legend.append("rect")
+      .attr("width", legend_width)
+      .attr("height", legend_height)
+      .attr("x", 20)
+      .attr("y", (d, i) => (height - ((i + 8) * legend_height)))
+      .style("fill", (d, i) => color(d))
+      .style("opacity", 0.75);
+
+legend.append("text")
+      .attr("x", 70)
+      .attr("y", (d, i) => (height - ((i + 7) * legend_height) - 5))
+      .text((d, i) => legend_values[i]);
 
 d3.queue()
   .defer(d3.json, "build/gz_2010_us_050_00_20m.json")
   .defer(d3.csv, "data/ACS_15_5YR_S1902_with_ann.csv")
   .await(ready);
-
-var scale = d3.scaleLinear()
-              .domain([0, 60000])
-              .range([0, 240]);
-
-var axis = d3.axisBottom(scale)
-             .tickSize(12)
-             .tickValues(color.domain());
-
-var g = d3.select("g").call(axis);
-
-g.select(".domain").remove();
-
-g.selectAll("rect")
-  .data(color.range().map(c => {
-    var d = color.invertExtent(c);
-    if (d[0] == null) d[0] = scale.domain()[0];
-    if (d[1] == null) d[1] = scale.domain()[1];
-    return d;
-  }))
-  .enter()
-  .insert("rect", ".tick")
-  .attr("height", 8)
-  .attr("scale", d => scale(d[0]))
-  .attr("width", d => scale(d[1]) - scale(d[0]))
-  .attr("fill", d => color(d[0]));
-
-g.append("text")
-  .attr("fill", "#000")
-  .attr("font-weight", "bold")
-  .attr("text-anchor", "start")
-  .attr("y", -6)
-  .text("Per capita income in US dollars");
 
 function ready(error, us, income) {
   if (error) throw error;

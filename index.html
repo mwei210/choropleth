@@ -17,10 +17,16 @@
 
       .legend {
         font-size: 12px;
+        font-family: 'Tinos', serif;
       }
 
       rect {
         stroke-width: 2;
+        cursor: pointer;
+      }
+
+      rect:disabled {
+        fill: transparent !important;
       }
 
       #map {
