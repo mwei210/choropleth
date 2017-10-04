@@ -5,20 +5,52 @@
     <title>Average Income Per Household in the US</title>
     <link href="https://fonts.googleapis.com/css?family=Tinos" rel="stylesheet">
     <style>
-      * {
+      head, body {
         background-color: #eeeff2;
       }
 
-      h1 {
-        font-family: 'Tinos', serif;
+      h1, h3 {
         color: #6A6969;
+        font-family: 'Tinos', serif;
         text-align: center;
+      }
+
+      .legend {
+        font-size: 12px;
+      }
+
+      rect {
+        stroke-width: 2;
+      }
+
+      #map {
+        position: relative;
       }
 
       .state {
         fill: none;
         stroke: white;
       }
+
+      .tooltip {
+        background: #eeeff2;
+        border: 1px solid #6A6969;
+        border-radius: 5px;
+        box-shadow: 0 0 5px #999999;
+        color: #6A6969;
+        display: none;
+        font-family: 'Tinos', serif;
+        font-size: 14px;
+        left: 130px;
+        padding: 8px;
+        position: absolute;
+        text-align: center;
+        top: 95px;
+        width: 100px;
+        z-index: 10;
+        pointer-events: none;
+      }
+
     </style>
   </head>
   <body>
