@@ -15,7 +15,7 @@ With this US Economic Map, users will be able to:
 
 In addition, this project will include:
 
-- [ ] An About modal describing the background and directions for how to read the map
+- [ ] An About description describing the background and directions for how to read the map
 - [ ] A production README
 
 ## Wireframes
@@ -60,7 +60,7 @@ This project will be implemented with the following technologies:
 **Day 4**:
 
 - [ ] Make a popup whenever the viewer hovers over a county
-- [ ] Build the modal and nav links
+- [ ] Build the description and nav links
 - [ ] Ensure the presentation is clean and cogent
 
 ## Bonus features
