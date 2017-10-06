@@ -50,7 +50,7 @@ var legend_values = [
   "27000+",
   "31000+",
   "$35000+"
-]
+];
 
 d3.queue()
   .defer(d3.json, "build/gz_2010_us_050_00_20m.json")
