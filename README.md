@@ -1,6 +1,6 @@
 # US Per Capita Income by County Choropleth
 
-[Choropleth](https://mwei.me) is a thematic map charting per capita income across over 3,000 US counties. The data visualization was crafted over the span of 5 days.
+[Choropleth](https://mwei.me) is a thematic map charting per capita income across 3,000 US counties. The data visualization was crafted over the span of 5 days.
 
 Choropleth incorporates:
 
