@@ -16,6 +16,10 @@
         text-align: center;
       }
 
+      h3 {
+        font-size: 16px;
+      }
+
       .legend {
         font-size: 12px;
         font-family: 'Tinos', serif;
@@ -28,13 +32,28 @@
         cursor: pointer;
       }
 
+      .links {
+        display: flex;
+      }
+
+      img {
+        margin: 0 32px;
+        color: #6A6969;
+      }
+
+      img:hover {
+        color: #E183A8
+      }
+
       .map {
         margin: 0 auto;
       }
 
-      .map_container {
+      .map-container {
         display: flex;
+        flex-direction: column;
         justify-content: space-around;
+        align-items: center;
       }
 
       .mesh {
@@ -65,9 +84,21 @@
   </head>
   <body>
     <h1>UNITED STATES PER CAPITA INCOME BY COUNTY</h1>
-    <div class="map_container">
+    <div class="map-container">
       <div class="map"></div>
-      <h3></h3>
+      <h3 class="description">Source: 2015 American Community Survey 5-year estimates</h3>
+      <div class="links">
+        <div>
+          <a href="https://github.com/mwei210">
+            <img src="docs/GitHub-Mark-32px.png"/>
+          </a>
+        </div>
+        <div>
+          <a href="https://www.linkedin.com/in/michael-wei-4248944b/">
+            <img src="docs/In-Black-34px-R.png"/>
+          </a>
+        </div>
+      </div>
     </div>
     <script src="bundle.js"></script>
   </body>

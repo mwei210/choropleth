@@ -101,18 +101,19 @@ function ready(error, us, income) {
         }
         tooltip.style("display", "block");
       })
+      .on("mouseover", function(d) {
+        d3.select(this)
+          .transition()
+          .duration(250)
+          .ease(d3.easeLinear)
+          .style("opacity", 1)
+      })
       .on("mouseout", function(d) {
         d3.select(this)
           .transition()
           .duration(250)
           .ease(d3.easeLinear)
-          .style("opacity", 0.75);
-        tooltip.transition().duration(250)
-               .style("opacity", 0);
-      })
-      .on("mousemove", d => {
-        tooltip.style("top", (d3.event.layerY + 5) + "px")
-               .style("left", (d3.event.layerX + 20) + "px");
+          .style("opacity", 0.75)
       });
 
   g.append("g")
@@ -141,20 +142,7 @@ function ready(error, us, income) {
         .attr("y", (d, i) => (height - ((i + 8) * legend_height)))
         .style("fill", (d, i) => color(d))
         .style("opacity", 0.75)
-        .on("mouseover", function(d) {
-          d3.select(this)
-            .transition()
-            .duration(250)
-            .ease(d3.easeLinear)
-            .style("opacity", 1)
-        })
-        .on("mouseout", function(d) {
-          d3.select(this)
-            .transition()
-            .duration(250)
-            .ease(d3.easeLinear)
-            .style("opacity", 0.75)
-        });
+
 
   legend.append("text")
         .attr("x", 70)
